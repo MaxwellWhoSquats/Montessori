@@ -1,0 +1,19 @@
+# .NET build artifacts
+Montessori.Api/bin/
+Montessori.Api/obj/
+Montessori.Api/Debug/
+Montessori.Api/Release/
+Montessori.Api/.vs/
+Montessori.Api/appsettings.*
+Montessori.Api/Properties/launchSettings.json
+
+# Environment variables
+.env
+*.local
+
+# General temporary files
+*.log
+*.cache
+*.pid
+*.seed
+*.swp
