@@ -1,9 +1,9 @@
 <template>
   <UCard
-    class="bg-white rounded-lg shadow-md p-6"
+    class="bg-white rounded-lg shadow-md p-10"
     :class="{ 'bg-teal-50': color === 'teal' }"
   >
-    <h3 v-if="title" class="text-xl font-semibold mb-2 text-teal-700">
+    <h3 v-if="title" class="text-2xl font-semibold mb-2 text-teal-700">
       {{ title }}
     </h3>
     <p class="text-gray-600">

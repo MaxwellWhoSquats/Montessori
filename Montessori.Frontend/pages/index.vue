@@ -1,27 +1,48 @@
 <template>
   <div class="flex flex-col">
-    <Hero />
-    <!-- Intro -->
-    <UContainer class="my-16">
-      <div
-        ref="introSection"
-        class="grid grid-cols-1 md:grid-cols-2 gap-8 opacity-0"
-      >
-        <Card title="Our Mission" color="teal">
-          At Gift of Grace Montessori, we create a nurturing, engaging
-          environment where children thrive through hands-on learning,
-          creativity, and exploration.
-        </Card>
-        <Card title="Why Choose Us?" color="teal">
-          Our classroom applies the Montessori method to inspire independence,
-          curiosity, and a lifelong love of learning in every child.
-        </Card>
+    <div class="relative">
+      <Hero />
+      <div ref="downArrow">
+        <DownArrow />
+      </div>
+    </div>
+    <!-- Introduction Text -->
+    <UContainer class="my-24 text-center">
+      <div ref="introText" class="opacity-0 max-w-4xl mx-auto">
+        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+          At <strong>Gift of Grace Montessori</strong>, we bring a
+          <strong>personal touch</strong> to education through our nurturing
+          microschool program. Designed to meet each child’s
+          <strong>unique needs</strong>, our Montessori approach ensures
+          learning is an <strong>immersive and dynamic journey</strong>. We
+          believe every child has the potential to achieve
+          <strong>greatness</strong>, and our goal is to help them flourish with
+          grace, ready for every good work (2 Timothy 3:17).
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Our heartfelt commitment is to partner with parents in fostering
+          <strong>faith, knowledge, and character</strong>. By planting the
+          seeds of <strong>spiritual and educational growth</strong>, we
+          cultivate a foundation that will thrive throughout your child’s life.
+          Through <strong>individualized instruction</strong>, a
+          <strong>multi-age classroom</strong>, and a
+          <strong>faith-based curriculum</strong>, we inspire a lifelong passion
+          for learning and strong community connections.
+        </p>
       </div>
     </UContainer>
 
-    <UContainer class="my-16">
+    <!-- Carousel Section -->
+    <UContainer>
+      <div ref="carouselSection" class="opacity-0">
+        <ImageCarousel />
+      </div>
+    </UContainer>
+
+    <!-- Feature Cards -->
+    <UContainer class="my-28">
       <div
-        ref="additionalContent"
+        ref="featureCards"
         class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-0"
       >
         <Card title="Individualized Learning" color="teal">
@@ -41,7 +62,7 @@
 
     <!-- Call to Action -->
     <UContainer
-      class="py-16 text-center bg-gradient-to-r from-teal-100 via-teal-50 to-white rounded-t-2xl mb-12"
+      class="mb-12 py-12 text-center bg-gradient-to-t from-teal-300 via-teal-100 to-teal-50 rounded-2xl"
     >
       <div ref="callToAction" class="opacity-0">
         <h2 class="text-4xl font-bold mb-4 text-teal-800">Ready to Join Us?</h2>
@@ -63,17 +84,47 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Hero from "../components/Hero.vue";
 import Card from "../components/Card.vue";
+import ImageCarousel from "../components/ImageCarousel.vue";
+import DownArrow from "../components/Icons/DownArrow.vue";
 
-const introSection = ref(null);
-const additionalContent = ref(null);
+const introText = ref(null);
+const carouselSection = ref(null);
+const featureCards = ref(null);
 const callToAction = ref(null);
+const downArrow = ref(null);
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
 
-  if (introSection.value) {
+  // Bouncing Down Arrow Animation
+  if (downArrow.value) {
+    gsap.to(downArrow.value, {
+      y: -10,
+      duration: 1,
+      ease: "power1.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
+  }
+
+  // Scroll Arrow Fade Out
+  if (downArrow.value && introText.value) {
+    gsap.to(downArrow.value, {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: introText.value,
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  }
+
+  // Intro Text and Carousel Animation
+  if (introText.value && carouselSection.value) {
     gsap.fromTo(
-      introSection.value,
+      [introText.value, carouselSection.value],
       { opacity: 0, y: 50 },
       {
         opacity: 1,
@@ -81,7 +132,7 @@ onMounted(() => {
         duration: 0.8,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: introSection.value,
+          trigger: introText.value,
           start: "top 80%",
           toggleActions: "play none none reverse",
         },
@@ -89,9 +140,10 @@ onMounted(() => {
     );
   }
 
-  if (additionalContent.value) {
+  // Feature Cards Animation
+  if (featureCards.value) {
     gsap.fromTo(
-      additionalContent.value,
+      featureCards.value,
       { opacity: 0, y: 50 },
       {
         opacity: 1,
@@ -99,7 +151,7 @@ onMounted(() => {
         duration: 0.8,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: additionalContent.value,
+          trigger: featureCards.value,
           start: "top 80%",
           toggleActions: "play none none reverse",
         },
@@ -107,6 +159,7 @@ onMounted(() => {
     );
   }
 
+  // Call to Action Animation
   if (callToAction.value) {
     gsap.fromTo(
       callToAction.value,

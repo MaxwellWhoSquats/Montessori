@@ -51,9 +51,6 @@
           </ul>
         </div>
       </div>
-      <div class="text-center">
-        <UButton to="/contact" color="primary" size="md"> Learn More </UButton>
-      </div>
     </UContainer>
 
     <!-- Community Section -->

@@ -4,7 +4,7 @@
       autoplay
       muted
       loop
-      class="w-full h-[70vh] object-cover"
+      class="w-full h-[80vh] object-cover"
       src="/hero-video.mp4"
     ></video>
     <div class="absolute inset-0 flex items-center justify-center bg-black/20">
