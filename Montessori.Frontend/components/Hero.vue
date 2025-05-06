@@ -17,7 +17,11 @@
             Nurturing young minds with love, creativity, and individualized
             learning.
           </p>
-          <UButton to="/about" size="lg" class="shadow-md bg-teal-600">
+          <UButton
+            to="/about"
+            size="lg"
+            class="shadow-md bg-teal-500 hover:bg-teal-600 hover:scale-110 transition duration-100"
+          >
             Learn More
           </UButton>
         </div>

@@ -40,7 +40,7 @@
     </UContainer>
 
     <!-- Feature Cards -->
-    <UContainer class="my-28">
+    <UContainer class="mt-28 mb-12">
       <div
         ref="featureCards"
         class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-0"
@@ -60,16 +60,44 @@
       </div>
     </UContainer>
 
-    <!-- Call to Action -->
-    <UContainer
-      class="mb-12 py-12 text-center bg-gradient-to-t from-teal-300 via-teal-100 to-teal-50 rounded-2xl"
-    >
-      <div ref="callToAction" class="opacity-0">
-        <h2 class="text-4xl font-bold mb-4 text-teal-800">Ready to Join Us?</h2>
-        <p class="text-xl mb-6 text-gray-700">
-          Discover how Gift of Grace Montessori can inspire your child’s growth.
+    <!-- Learn More Section -->
+    <UContainer>
+      <div
+        ref="learnMore"
+        class="my-12 py-12 text-center bg-gradient-to-b from-teal-100 via-teal-100 to-teal-50 rounded-2xl opacity-0"
+      >
+        <h2 class="text-3xl font-bold mb-4 text-teal-800">
+          Learn More About Us
+        </h2>
+        <p class="text-lg text-gray-700 mb-6">
+          Explore our Montessori philosophy, programs, and community to see how
+          we nurture every child’s potential.
         </p>
-        <UButton to="/about" color="primary" size="lg" class="shadow-md">
+        <UButton
+          to="/about"
+          size="lg"
+          class="shadow-md bg-teal-500 hover:bg-teal-600 hover:scale-110 transition duration-100"
+        >
+          Discover More
+        </UButton>
+      </div>
+    </UContainer>
+
+    <!-- Call to Action -->
+    <UContainer class="mb-12 py-12">
+      <div ref="callToAction" class="opacity-0 text-center">
+        <h2 class="text-4xl font-bold mb-4 text-teal-800">Looking to Join?</h2>
+        <p class="text-xl mb-6 text-gray-700">
+          Get in contact to discover Gift of Grace Montessori can inspire your
+          child’s growth.
+        </p>
+        <UButton
+          to="/contact"
+          color="primary"
+          size="xl"
+          class="shadow-md bg-teal-500 hover:bg-teal-600 hover:scale-110 transition duration-100"
+          icon="i-heroicons-envelope"
+        >
           Get Started
         </UButton>
       </div>
@@ -92,6 +120,7 @@ const carouselSection = ref(null);
 const featureCards = ref(null);
 const callToAction = ref(null);
 const downArrow = ref(null);
+const learnMore = ref(null);
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
@@ -152,6 +181,25 @@ onMounted(() => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: featureCards.value,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }
+
+  // Learn More Animation
+  if (learnMore.value) {
+    gsap.fromTo(
+      learnMore.value,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: learnMore.value,
           start: "top 80%",
           toggleActions: "play none none reverse",
         },
