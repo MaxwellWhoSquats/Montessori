@@ -3,7 +3,7 @@
     v-slot="{ item }"
     loop
     arrows
-    dots
+    :dots="showDots"
     :autoplay="{ delay: 3000 }"
     :items="items"
     :ui="{ item: 'basis-1/2 md:basis-1/3 gap-2' }"
@@ -18,4 +18,10 @@
 
 <script setup>
 const items = Array.from({ length: 30 }, (_, i) => `/Carousel/${i + 1}.jpg`);
+defineProps({
+  showDots: {
+    type: Boolean,
+    default: false,
+  },
+});
 </script>

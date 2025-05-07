@@ -35,7 +35,7 @@
     <!-- Carousel Section -->
     <UContainer>
       <div ref="carouselSection" class="opacity-0">
-        <ImageCarousel />
+        <ImageCarousel :showDots="showDots" />
       </div>
     </UContainer>
 
@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, computed } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -121,9 +121,23 @@ const featureCards = ref(null);
 const callToAction = ref(null);
 const downArrow = ref(null);
 const learnMore = ref(null);
+const windowWidth = ref(0);
+
+// Track window width for ImageCarousel dots visibility
+const updateWindowWidth = () => {
+  if (typeof window !== "undefined") {
+    windowWidth.value = window.innerWidth;
+  }
+};
+const showDots = computed(() => {
+  return windowWidth.value >= 768; // Tailwind's 'md' breakpoint
+});
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger);
+
+  updateWindowWidth();
+  window.addEventListener("resize", updateWindowWidth);
 
   // Bouncing Down Arrow Animation
   if (downArrow.value) {
@@ -225,5 +239,9 @@ onMounted(() => {
       }
     );
   }
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWindowWidth);
 });
 </script>

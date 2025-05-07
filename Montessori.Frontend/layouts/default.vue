@@ -1,16 +1,41 @@
 <template>
   <div class="min-h-screen flex flex-col bg-teal-50">
     <!-- Navbar -->
-    <header class="bg-teal-700 text-white shadow-md">
-      <div class="max-w-7xl mx-auto px-4">
+    <header class="bg-teal-700 text-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav class="flex items-center justify-between py-4">
-          <a href="/" class="text-2xl font-bold hover:text-teal-200">
+          <!-- Logo -->
+          <a
+            href="/"
+            class="text-2xl font-bold tracking-tight hover:text-teal-200 transition-colors duration-200"
+          >
             Gift of Grace Montessori
           </a>
-          <div class="hidden md:flex space-x-8 text-lg font-medium">
-            <a href="/" class="hover:text-teal-200">Home</a>
-            <a href="/about" class="hover:text-teal-200">About Us</a>
-            <a href="/login" class="hover:text-teal-200">Login</a>
+
+          <!-- Desktop Menu -->
+          <div
+            class="hidden md:flex items-center space-x-8 text-lg font-medium"
+          >
+            <a
+              href="/"
+              class="hover:text-teal-200 transition-colors duration-200"
+              >Home</a
+            >
+            <a
+              href="/about"
+              class="hover:text-teal-200 transition-colors duration-200"
+              >Our School</a
+            >
+            <a
+              href="/contact"
+              class="hover:text-teal-200 transition-colors duration-200"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu -->
+          <div class="md:hidden">
+            <DropdownMenu />
           </div>
         </nav>
       </div>
@@ -23,7 +48,7 @@
 
     <!-- Footer -->
     <footer class="bg-teal-700 text-white py-6 mt-auto">
-      <div class="max-w-7xl mx-auto px-4">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div
           class="flex flex-col md:flex-row justify-between items-center text-center md:text-left"
         >
@@ -43,3 +68,7 @@
     </footer>
   </div>
 </template>
+
+<script setup lang="ts">
+import DropdownMenu from "~/components/DropdownMenu.vue";
+</script>

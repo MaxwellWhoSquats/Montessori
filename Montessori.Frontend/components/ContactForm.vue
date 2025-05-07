@@ -38,16 +38,20 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       @submit="onSubmit"
     >
       <UFormField label="First Name" name="firstname">
-        <UInput v-model="state.firstname" class="mx-auto w-96" />
+        <UInput v-model="state.firstname" class="mx-auto w-64 lg:w-96" />
       </UFormField>
       <UFormField label="Last Name" name="lastname">
-        <UInput v-model="state.lastname" class="mx-auto w-96" />
+        <UInput v-model="state.lastname" class="mx-auto w-64 lg:w-96" />
       </UFormField>
       <UFormField label="Email" name="email">
-        <UInput v-model="state.email" type="email" class="mx-auto w-96" />
+        <UInput
+          v-model="state.email"
+          type="email"
+          class="mx-auto w-64 lg:w-96"
+        />
       </UFormField>
       <UFormField label="Phone" name="phone">
-        <UInput v-model="state.phone" type="tel" class="mx-auto w-96" />
+        <UInput v-model="state.phone" type="tel" class="mx-auto w-64 lg:w-96" />
       </UFormField>
       <div class="text-center">
         <UButton
