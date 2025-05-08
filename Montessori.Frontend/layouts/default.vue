@@ -27,6 +27,11 @@
               >Our School</a
             >
             <a
+              href="/enrollment"
+              class="hover:text-teal-200 transition-colors duration-200"
+              >Enrollment</a
+            >
+            <a
               href="/contact"
               class="hover:text-teal-200 transition-colors duration-200"
               >Contact</a
