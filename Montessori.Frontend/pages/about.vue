@@ -126,7 +126,7 @@
           v-for="subject in subjects"
           :key="subject.name"
           class="text-center hover:shadow-lg transition-shadow duration-200"
-          :ui="{ body: { padding: 'px-4 py-5 sm:p-6' } }"
+          :ui="{ body: 'px-4 py-5 sm:p-6' }"
         >
           <div class="flex flex-col items-center">
             <UIcon
@@ -142,6 +142,14 @@
         And many more enriching activities designed to foster a love for
         learning!
       </p>
+    </UContainer>
+
+    <UContainer class="my-6">
+      <USeparator class="mb-10" size="sm" />
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-bold text-teal-800">FAQ</h2>
+      </div>
+      <UAccordion :items="questions" :ui="{ item: 'py-2' }" />
     </UContainer>
 
     <UContainer
@@ -163,7 +171,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { AccordionItem } from "@nuxt/ui";
+import { ref } from "vue";
+
 // For "Our Approach" Section
 const approaches = [
   {
@@ -216,4 +227,39 @@ const subjects = [
   { name: "Practical Life", icon: "i-heroicons-home" },
   { name: "Music", icon: "i-heroicons-musical-note" },
 ];
+
+// For "FAQ" Section
+const questions = ref<AccordionItem[]>([
+  {
+    label: "WHAT IS MICRO-SCHOOLING?",
+    icon: "i-heroicons-academic-cap-solid",
+    content:
+      "Microschooling is an alternative form of education that provides a personalized and flexible learning experience. It typically involves a small group of learners collaborating with a teacher to achieve educational goals. Microschools can be found in various settings, such as homes, community centers, and dedicated microschooling spaces.",
+  },
+  {
+    label: "HOW DOES MICROSCHOOLING WORK?",
+    icon: "i-heroicons-cog-6-tooth-solid",
+    content:
+      "Microschools prioritize individualized instruction, with teachers tailoring their methods and curriculum to meet each student's unique needs and interests. This approach allows students to learn at their own pace, explore topics of interest in depth, and receive personalized feedback and support. Microschooling often emphasizes project-based learning, where students tackle real-world problems and challenges, helping them develop critical thinking, problem-solving, and collaboration skills. Additionally, many microschools incorporate technology and online resources into their curriculum to enhance student learning and exploration.",
+  },
+  {
+    label: "WHAT ARE THE BENEFITS OF MICROSCHOOLING?",
+    icon: "i-heroicons-sparkles-solid",
+    content:
+      "One of the key benefits of microschooling is its flexibility. Due to their small and independent nature, microschools can quickly adapt to the changing needs of students and families. Microschools also provide a sense of community and belonging for students who may struggle in larger, more traditional school settings. Furthermore, by prioritizing individualized learning and project-based exploration, microschools help students gain a deeper understanding of topics and develop skills that are valuable for their future endeavors.",
+  },
+  {
+    label:
+      "COULD YOU DESCRIBE THE MONTESSORI METHOD AS IT APPLIES TO ELEMENTARY EDUCATION?",
+    icon: "i-heroicons-squares-plus-solid",
+    content:
+      'In elementary school, children enter what Maria Montessori called the "second plane of development," a time of rapid intellectual growth and rational thinking. They are eager to understand the how and why of the world around them through exploration and experimentation.\n\nMontessori methods cater to this curiosity by creating personalized learning environments that address each child\'s unique needs and interests. Teachers use diverse strategies to encourage self-directed, independent learning, while fostering a sense of community through collaboration and communication. By focusing on the whole child, Montessori education nurtures academic, social, and emotional development. The ultimate aim is to inspire a love of learning and develop confident, lifelong learners.',
+  },
+  {
+    label: "DOES GIFT OF GRACE SERVE CHILDREN WITH SPECIAL NEEDS?",
+    icon: "i-heroicons-puzzle-piece-solid",
+    content:
+      "We aim to support students with a range of abilities and encourage families to discuss their child's specific needs with us directly. While we can offer support for students with mild learning differences, we are not trained to serve children with serious learning or behavioral disabilities. However, we can support children who can function independently in a classroom with limited modification. We also recommend additional support at home, such as tutoring or therapy, to complement our educational approach.",
+  },
+]);
 </script>
