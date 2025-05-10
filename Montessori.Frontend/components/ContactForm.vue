@@ -7,6 +7,7 @@ const schema = z.object({
   lastname: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email"),
   phone: z.string().regex(/^\+?[\d\s-]{10,}$/, "Invalid phone number"),
+  message: z.string().min(1, "Message is required").max(500, "Message cannot exceed 500 characters"),
 });
 
 type Schema = z.output<typeof schema>;
@@ -16,6 +17,7 @@ const state = reactive<Partial<Schema>>({
   lastname: undefined,
   email: undefined,
   phone: undefined,
+  message: undefined,
 });
 
 const toast = useToast();
@@ -52,6 +54,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       </UFormField>
       <UFormField label="Phone" name="phone">
         <UInput v-model="state.phone" type="tel" class="mx-auto w-64 lg:w-96" />
+      </UFormField>
+      <UFormField label="Message" name="message">
+        <UTextarea
+          v-model="state.message"
+          class="mx-auto w-64 lg:w-96"
+          placeholder="Type your message here..."
+          :rows="4"
+        />
       </UFormField>
       <div class="text-center">
         <UButton
