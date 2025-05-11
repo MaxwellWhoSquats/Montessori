@@ -4,6 +4,15 @@ Montessori.Api/obj/
 Montessori.Api/Debug/
 Montessori.Api/Release/
 Montessori.Api/.vs/
+
+# SQLite database
+Montessori.Api/montessori.db
+*.db
+
+# Migration files
+Montessori.Api/Migrations/*.cs
+
+# Configuration and environment files
 Montessori.Api/appsettings.*
 Montessori.Api/Properties/launchSettings.json
 
@@ -11,9 +20,12 @@ Montessori.Api/Properties/launchSettings.json
 .env
 *.local
 
-# General temporary files
+# Temporary files
 *.log
 *.cache
 *.pid
 *.seed
 *.swp
+*.suo
+*.user
+*.sln.docstates
