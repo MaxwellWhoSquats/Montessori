@@ -27,16 +27,17 @@ import axios from "axios";
 const submissions = ref([]);
 
 const fetchSubmissions = async () => {
-  // Only access localStorage on the client side
+  // Check if running on the client side
   if (!process.client) return;
 
-  // JWT token for authentication
-  const token = localStorage.getItem("token");
-  if (!token) return;
+  // Get the token from the cookie, which stores the JWT for authentication
+  const tokenCookie = useCookie("token");
+  if (!tokenCookie.value) return;
 
   try {
+    // Make an HTTP GET request to the backend API with the token in the Authorization header
     const response = await axios.get("http://localhost:5027/api/contact", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${tokenCookie.value}` },
     });
     submissions.value = response.data;
   } catch (err) {

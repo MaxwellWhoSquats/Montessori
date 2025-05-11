@@ -64,6 +64,12 @@ const form = reactive({
   password: "",
 });
 const error = ref("");
+const tokenCookie = useCookie("token", {
+  httpOnly: false,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+  maxAge: 60 * 60, // 1 hour
+});
 
 const login = async () => {
   try {
@@ -71,7 +77,7 @@ const login = async () => {
       "http://localhost:5027/api/auth/login",
       form
     );
-    localStorage.setItem("token", response.data.token);
+    tokenCookie.value = response.data.token;
     router.push("/admin/dashboard");
   } catch (err) {
     error.value = "Invalid credentials";
