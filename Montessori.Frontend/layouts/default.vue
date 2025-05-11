@@ -64,9 +64,12 @@
           />
           <div>
             <p class="text-lg font-semibold">© 2025 Gift of Grace Montessori</p>
-            <p class="text-sm mt-1">
+            <p class="text-md mt-1">
               Contact us: giftofgracemontessori@gmail.com | (269) 365-5775
             </p>
+            <a href="/login" class="text-xs underline mt-2 hover:text-gray-300">
+              Login
+            </a>
           </div>
         </div>
       </div>

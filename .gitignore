@@ -8,6 +8,7 @@ Montessori.Api/.vs/
 # SQLite database
 Montessori.Api/montessori.db
 *.db
+*.db*
 
 # Migration files
 Montessori.Api/Migrations/*.cs
