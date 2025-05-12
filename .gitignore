@@ -1,20 +1,30 @@
-# .NET build artifacts
-Montessori.Api/bin/
-Montessori.Api/obj/
-Montessori.Api/Debug/
-Montessori.Api/Release/
-Montessori.Api/.vs/
+# .NET Core
+bin/
+obj/
+out/
+*.user
+*.suo
+*.sln.docstates
+*.csproj.user
+*.nupkg
+*.snk
 
-# SQLite database
-Montessori.Api/montessori.db
-*.db
-*.db*
+# Visual Studio
+.vscode/
+.idea/
+*.vs/
 
-# Migration files
-Montessori.Api/Migrations/*.cs
+# Docker
+Dockerfile
+*.dockerignore
+
+# SQLite Database (include montessori.db)
+!Montessori.Api/montessori.db
+Montessori.Api/Migrations/*
 
 # Configuration and environment files
-Montessori.Api/appsettings.*
+appsettings.json
+appsettings.Development.json
 Montessori.Api/Properties/launchSettings.json
 
 # Environment variables
@@ -27,6 +37,7 @@ Montessori.Api/Properties/launchSettings.json
 *.pid
 *.seed
 *.swp
-*.suo
-*.user
-*.sln.docstates
+
+# OS-specific
+.DS_Store
+Thumbs.db
