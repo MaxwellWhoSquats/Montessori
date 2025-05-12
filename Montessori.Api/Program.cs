@@ -11,12 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<MontessoriContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Enable CORS to allow any origin
+// Enable CORS for specific frontend origin
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowFrontend", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("https://montessori-zeta.vercel.app/login")
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials();
@@ -43,7 +43,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
