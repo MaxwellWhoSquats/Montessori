@@ -14,10 +14,6 @@ out/
 .idea/
 *.vs/
 
-# Docker
-Dockerfile
-*.dockerignore
-
 # SQLite Database (include montessori.db)
 !Montessori.Api/montessori.db
 Montessori.Api/Migrations/*
