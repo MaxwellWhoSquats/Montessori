@@ -11,14 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<MontessoriContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Enable CORS for Nuxt frontend
+// Enable CORS to allow any origin
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowNuxt", builder =>
+    options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
+        builder.AllowAnyOrigin()
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials();
     });
 });
 
@@ -38,12 +39,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 app.UseHttpsRedirection();
-app.UseCors("AllowNuxt");
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

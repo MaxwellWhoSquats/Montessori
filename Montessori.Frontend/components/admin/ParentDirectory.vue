@@ -1,122 +1,52 @@
 <template>
-  <div>
-    <h2 class="text-2xl font-semibold text-teal-600 mb-4">Parent Directory</h2>
-    <UForm :schema="schema" :state="formState" @submit="submitParent">
-      <div class="grid grid-cols-2 gap-4 mb-6">
-        <UFormGroup label="Name" name="name">
-          <UInput v-model="formState.name" placeholder="Enter name" />
-        </UFormGroup>
-        <UFormGroup label="Email" name="email">
-          <UInput
-            v-model="formState.email"
-            placeholder="Enter email"
-            type="email"
-          />
-        </UFormGroup>
-        <UFormGroup label="Phone" name="phone">
-          <UInput v-model="formState.phone" placeholder="Enter phone" />
-        </UFormGroup>
-        <UFormGroup label="Notes" name="notes">
-          <UInput v-model="formState.notes" placeholder="Enter notes" />
-        </UFormGroup>
+  <div class="p-4 space-y-4 border-2 border-teal-600 rounded-xl">
+    <h2 class="text-2xl font-bold mb-4">Contact Submissions</h2>
+    <div v-if="submissions.length" class="space-y-4">
+      <div
+        v-for="submission in submissions"
+        :key="submission.id"
+        class="border p-4 rounded shadow"
+      >
+        <p><strong>Name:</strong> {{ submission.name }}</p>
+        <p><strong>Email:</strong> {{ submission.email }}</p>
+        <p><strong>Phone:</strong> {{ submission.phone }}</p>
+        <p><strong>Message:</strong> {{ submission.message }}</p>
+        <p>
+          <strong>Submitted:</strong>
+          {{ new Date(submission.submittedAt).toLocaleDateString() }}
+        </p>
       </div>
-      <UButton type="submit" color="primary">Add Parent</UButton>
-    </UForm>
-    <UTable
-      ref="table"
-      :data="parents"
-      :columns="columns"
-      class="mt-6"
-      :ui="{ tr: 'hover:bg-teal-100 transition-colors' }"
-    />
+    </div>
+    <p v-else>No submissions yet.</p>
   </div>
 </template>
 
 <script setup>
-import { ref, h } from "vue";
-import { z } from "zod";
 import axios from "axios";
-import { useCookie } from "nuxt/app";
 
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
-  phone: z.string().optional(),
-  notes: z.string().optional(),
-});
+const submissions = ref([]);
 
-const formState = ref({
-  name: "",
-  email: "",
-  phone: "",
-  notes: "",
-});
-
-const parents = ref([]);
-const columns = [
-  {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => h("span", { class: "font-bold" }, row.getValue("name")),
-  },
-  { accessorKey: "email", header: "Email" },
-  { accessorKey: "phone", header: "Phone" },
-  { accessorKey: "notes", header: "Notes" },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ row }) => new Date(row.getValue("createdAt")).toLocaleDateString(),
-  },
-];
-
-const fetchParents = async () => {
+const fetchSubmissions = async () => {
   // Check if running on the client side
   if (!process.client) return;
 
-  // Get the token from the cookie
+  // Get the token from the cookie, which stores the JWT for authentication
   const tokenCookie = useCookie("token");
-  if (!tokenCookie.value) {
-    console.error("No token found");
-    return;
-  }
+  if (!tokenCookie.value) return;
 
   try {
-    const response = await axios.get("http://localhost:5027/api/parent", {
-      headers: { Authorization: `Bearer ${tokenCookie.value}` },
-    });
-    parents.value = response.data;
-  } catch (err) {
-    console.error("Failed to fetch parents:", err);
-  }
-};
-
-// Create a new parent in the database
-const submitParent = async () => {
-  // Check if running on the client side
-  if (!process.client) return;
-
-  // Get the token from the cookie
-  const tokenCookie = useCookie("token");
-  if (!tokenCookie.value) {
-    console.error("No token found");
-    return;
-  }
-
-  try {
-    const response = await axios.post(
-      "http://localhost:5027/api/parent",
-      formState.value,
+    // Make an HTTP GET request to the backend API with the token in the Authorization header
+    const response = await axios.get(
+      "https://montessori-j0jz.onrender.com/api/contact",
       {
         headers: { Authorization: `Bearer ${tokenCookie.value}` },
       }
     );
-    parents.value.push(response.data);
-    formState.value = { name: "", email: "", phone: "", notes: "" };
-    console.log("Parent added successfully:", response.data);
+    submissions.value = response.data;
   } catch (err) {
-    console.error("Failed to add parent:", err);
+    console.error("Failed to fetch submissions:", err);
   }
 };
 
-onMounted(fetchParents);
+onMounted(fetchSubmissions);
 </script>

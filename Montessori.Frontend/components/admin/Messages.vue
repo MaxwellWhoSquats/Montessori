@@ -36,9 +36,12 @@ const fetchSubmissions = async () => {
 
   try {
     // Make an HTTP GET request to the backend API with the token in the Authorization header
-    const response = await axios.get("http://localhost:5027/api/contact", {
-      headers: { Authorization: `Bearer ${tokenCookie.value}` },
-    });
+    const response = await axios.get(
+      "https://montessori-j0jz.onrender.com/api/contact",
+      {
+        headers: { Authorization: `Bearer ${tokenCookie.value}` },
+      }
+    );
     submissions.value = response.data;
   } catch (err) {
     console.error("Failed to fetch submissions:", err);

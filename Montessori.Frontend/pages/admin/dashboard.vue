@@ -23,7 +23,7 @@
 <script setup>
 import { ref } from "vue";
 import { navigateTo, useCookie } from "#app";
-import Messages from "../../components/admin/messages.vue";
+import Messages from "../../components/admin/Messages.vue";
 import ParentDirectory from "../../components/admin/ParentDirectory.vue";
 
 definePageMeta({
