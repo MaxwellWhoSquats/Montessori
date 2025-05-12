@@ -13,18 +13,25 @@
           Logout
         </UButton>
       </div>
-      <Messages />
+      <USelect v-model="selectedView" :items="views" class="w-48 mb-6" />
+      <Messages v-if="selectedView === 'Messages'" />
+      <ParentDirectory v-if="selectedView === 'Parent Directory'" />
     </div>
   </UContainer>
 </template>
 
 <script setup>
-import { navigateTo } from "#app";
+import { ref } from "vue";
+import { navigateTo, useCookie } from "#app";
 import Messages from "../../components/admin/messages.vue";
+import ParentDirectory from "../../components/admin/ParentDirectory.vue";
 
 definePageMeta({
   middleware: "auth",
 });
+
+const views = ref(["Messages", "Parent Directory"]);
+const selectedView = ref("Messages");
 
 const logout = () => {
   const tokenCookie = useCookie("token");

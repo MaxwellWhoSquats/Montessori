@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 space-y-4 border-4 border-teal-600 rounded-xl">
+  <div class="p-4 space-y-4 border-2 border-teal-600 rounded-xl">
     <h2 class="text-2xl font-bold mb-4">Contact Submissions</h2>
     <div v-if="submissions.length" class="space-y-4">
       <div
